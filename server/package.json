@@ -1,0 +1,23 @@
+{
+  "name": "agent-locations-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2-runtime pm2.config.js --env production",
+    "server": "nodemon src/server",
+    "dev": "nodemon src/server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "geodist": "^0.2.1",
+    "mongoose": "^5.9.6",
+    "pm2": "^4.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

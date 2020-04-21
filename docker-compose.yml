@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  server:
+    container_name: screte_mission_server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    environment:
+      - PORT=${SERVER_PORT}
+      - NODE_ENV=${NODE_ENV_DEV}
+      - MONGO_URI=${MONGO_URI_DEV}
+      - GEOCODE_API_KEY=${GEOCODE_API_KEY}
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./server/src:/app/server/src
+    command: npm run dev
+    depends_on: 
+      - db
+    restart: always
+    networks:    
+        - secretagent
+
+  client:
+    container_name: screte_mission_client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - ${REACT_APP_PORT}:${REACT_APP_PORT}
+    volumes:
+      - ./client/src:/app/client/src
+      - ./client/public:/app/client/public
+    links:
+      - server
+    depends_on: 
+      - server
+    command: npm start
+    restart: always
+    networks:    
+        - secretagent
+
+  db:
+    container_name: screte_mission_db
+    image: mongo:4.0
+    command: mongod --port ${MONGO_PORT}
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    restart: always
+    networks:    
+      - secretagent
+  
+networks:    
+  secretagent:

@@ -1,0 +1,10 @@
+GET http://localhost:3001/api/v1/mission/countries-by-isolation HTTP/1.1
+content-type: application/json
+
+####
+POST http://localhost:3001/api-v1/mission/find-closest HTTP/1.1
+content-type: application/json
+
+{
+    "targetLocation":{ "lat": "-22.9865847", "long": "-43.2012742" }
+}
